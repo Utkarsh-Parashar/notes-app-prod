@@ -1,31 +1,33 @@
 [
     {
         "id": "n_6k6xxriw",
-        "type": "table",
-        "title": "What's the difference between var, let and const?",
-        "content": "[[\"var\",\"let\",\"const\"],[\"It's function/global scoped. Can be accessed from outside the block within the function. And globally if declared outside any function.\",\"Block scoped. They are only accessible within the specific block (defined by curly braces {}) where they are declared.\",\"Block scoped. They are only accessible within the specific block (defined by curly braces {}) where they are declared.\"],[\"Reassignment can be done.\",\"Reassignment can be done.\",\"Reassignment can't be done.\"],[\"Re-declaration can be done.\",\"Re-declaration is not allowed.\",\"Re-declaration is not allowed.\"],[\"var declarations are hoisted to the top of their scope and automatically initialized with undefined. This means we can access a var variable before its actual declaration in the code.\",\"let and const declarations are also hoisted, but they are not initialized. Accessing them before their declaration results in a ReferenceError, as they are in a \\\"temporal dead zone\\\" until the declaration line is reached and they are assigned a value\",\"Same as let.\"],[\"When using var in a for loop, each iteration shares the same variable across all iterations. And can be accessed outside for loop.\",\"When using let in a for loop, each iteration of the loop creates a new instance of the variable. This is different from var, which shares the same variable across all iterations.\",\"Not possible.\"]]",
-        "meta": {},
-        "createdAt": 1769344175958,
-        "updatedAt": 1769344175958
+        "question": "What's the difference between var, let and const?",
+        "answer":[
+            {
+                "type": "table",
+                "content": "[[\"var\",\"let\",\"const\"],[\"It's function/global scoped. Can be accessed from outside the block within the function. And globally if declared outside any function.\",\"Block scoped. They are only accessible within the specific block (defined by curly braces {}) where they are declared.\",\"Block scoped. They are only accessible within the specific block (defined by curly braces {}) where they are declared.\"],[\"Reassignment can be done.\",\"Reassignment can be done.\",\"Reassignment can't be done.\"],[\"Re-declaration can be done.\",\"Re-declaration is not allowed.\",\"Re-declaration is not allowed.\"],[\"var declarations are hoisted to the top of their scope and automatically initialized with undefined. This means we can access a var variable before its actual declaration in the code.\",\"let and const declarations are also hoisted, but they are not initialized. Accessing them before their declaration results in a ReferenceError, as they are in a \\\"temporal dead zone\\\" until the declaration line is reached and they are assigned a value\",\"Same as let.\"],[\"When using var in a for loop, each iteration shares the same variable across all iterations. And can be accessed outside for loop.\",\"When using let in a for loop, each iteration of the loop creates a new instance of the variable. This is different from var, which shares the same variable across all iterations.\",\"Not possible.\"]]",
+                "meta": {}
+            }
+        ]
     },
     {
         "id": "n_qp8vdxad",
-        "type": "paragraph",
-        "title": "Primitive data types in JS.",
-        "content": "string: Represents a sequence of characters, used for textual data.\nnumber: Represents both integer and floating-point numbers. JavaScript uses double-precision 64-bit floating-point format (IEEE 754) internally.\nbigint: A numeric data type that can represent integers of arbitrary length, larger than the maximum safe integer(Number.MAX_SAFE_INTEGER or 2⁵³ - 1).\n        A BigInt value is created by appending n to the end of an integer or by calling the BigInt() constructor.\nboolean: A logical type that can have only two values: true or false.\nundefined: Represents a variable that has been declared but has not been assigned a value. JavaScript automatically assigns this value by default.\nnull: Represents an intentional absence of any value. The typeof operator returns \"object\" for null, which is a known historical error in JavaScript.\nsymbol: A unique and immutable value that can be used as an identifier for object properties.",
-        "meta": {},
-        "createdAt": 1769349688473,
-        "updatedAt": 1769349973390
+        "question": "Primitive data types in JS.",
+        "answer":[{
+            "type": "paragraph",
+            "content": "string: Represents a sequence of characters, used for textual data.\nnumber: Represents both integer and floating-point numbers. JavaScript uses double-precision 64-bit floating-point format (IEEE 754) internally.\nbigint: A numeric data type that can represent integers of arbitrary length, larger than the maximum safe integer(Number.MAX_SAFE_INTEGER or 2⁵³ - 1).\n        A BigInt value is created by appending n to the end of an integer or by calling the BigInt() constructor.\nboolean: A logical type that can have only two values: true or false.\nundefined: Represents a variable that has been declared but has not been assigned a value. JavaScript automatically assigns this value by default.\nnull: Represents an intentional absence of any value. The typeof operator returns \"object\" for null, which is a known historical error in JavaScript.\nsymbol: A unique and immutable value that can be used as an identifier for object properties.",
+            "meta": {}
+        }]
     },
     {
         "id": "n_ryfkebcy",
-        "type": "code",
-        "title": "symbol() data type in javascript",
-        "content": "Symbols are new primitive built-in object types introduced as part of ES6.\nSymbols are often used to add unique property keys to an object that won't collide with keys any other code might add to the object, \nand which are hidden from any mechanisms other code will typically use to access the object.\n\nconst sym1 = Symbol();\nconst sym = new Symbol(); -- TypeError\nconst sym2 = Symbol(\"foo\");\nconst sym3 = Symbol(\"foo\");\nconsole.log(sym2 == sym3) -- false\nconsole.log(typeof sym2); -- symbol\n\n---- use cases of Symbols -----\nconst user = { name: \"John Doe\" };\nconst secretId = Symbol('secret-id');\n\nAdd a property using a Symbol key\nuser[secretId] = '12345';\n\nconsole.log(user.name); -- \"John Doe\"\nconsole.log(user[secretId]); -- \"12345\"\n\nThe symbol property is ignored by standard enumeration\nfor (const key in user) {\n  console.log(key); -- Only logs \"name\"\n}\n\n---- Can be used to create Enum like properties -----\nconst CarState = Object.freeze({\n  DRIVE: Symbol('drive'),\n  IDLE: Symbol('idle'),\n});\n\nfunction changeCarState(car, newState) {\n  if (newState === CarState.DRIVE) {\n    console.log('Wroom, wroom!');\n    car.state = newState;\n  } else if (newState === CarState.IDLE) {\n    console.log('Waiting for ya!');\n    car.state = newState;\n  }\n}",
-        "meta": {
-            "language": "javascript"
-        },
-        "createdAt": 1769353015117,
-        "updatedAt": 1769353015117
+        "question": "symbol() data type in javascript",
+        "answer":[{
+            "type": "code",
+            "content": "Symbols are new primitive built-in object types introduced as part of ES6.\nSymbols are often used to add unique property keys to an object that won't collide with keys any other code might add to the object, \nand which are hidden from any mechanisms other code will typically use to access the object.\n\nconst sym1 = Symbol();\nconst sym = new Symbol(); -- TypeError\nconst sym2 = Symbol(\"foo\");\nconst sym3 = Symbol(\"foo\");\nconsole.log(sym2 == sym3) -- false\nconsole.log(typeof sym2); -- symbol\n\n---- use cases of Symbols -----\nconst user = { name: \"John Doe\" };\nconst secretId = Symbol('secret-id');\n\nAdd a property using a Symbol key\nuser[secretId] = '12345';\n\nconsole.log(user.name); -- \"John Doe\"\nconsole.log(user[secretId]); -- \"12345\"\n\nThe symbol property is ignored by standard enumeration\nfor (const key in user) {\n  console.log(key); -- Only logs \"name\"\n}\n\n---- Can be used to create Enum like properties -----\nconst CarState = Object.freeze({\n  DRIVE: Symbol('drive'),\n  IDLE: Symbol('idle'),\n});\n\nfunction changeCarState(car, newState) {\n  if (newState === CarState.DRIVE) {\n    console.log('Wroom, wroom!');\n    car.state = newState;\n  } else if (newState === CarState.IDLE) {\n    console.log('Waiting for ya!');\n    car.state = newState;\n  }\n}",
+            "meta": {
+                "language": "javascript"
+            }
+        }]
     }
 ]
