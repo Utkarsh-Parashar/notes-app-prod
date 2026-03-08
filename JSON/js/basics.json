@@ -2,7 +2,9 @@
     {
         "id": "n_6k6xxriw",
         "question": "What's the difference between var, let and const?",
-        "answer":[
+        "topic": "Data Type and Variables",
+        "complexity": "Basics",
+        "answer": [
             {
                 "type": "table",
                 "content": "[[\"var\",\"let\",\"const\"],[\"It's function/global scoped. Can be accessed from outside the block within the function. And globally if declared outside any function.\",\"Block scoped. They are only accessible within the specific block (defined by curly braces {}) where they are declared.\",\"Block scoped. They are only accessible within the specific block (defined by curly braces {}) where they are declared.\"],[\"Reassignment can be done.\",\"Reassignment can be done.\",\"Reassignment can't be done.\"],[\"Re-declaration can be done.\",\"Re-declaration is not allowed.\",\"Re-declaration is not allowed.\"],[\"var declarations are hoisted to the top of their scope and automatically initialized with undefined. This means we can access a var variable before its actual declaration in the code.\",\"let and const declarations are also hoisted, but they are not initialized. Accessing them before their declaration results in a ReferenceError, as they are in a \\\"temporal dead zone\\\" until the declaration line is reached and they are assigned a value\",\"Same as let.\"],[\"When using var in a for loop, each iteration shares the same variable across all iterations. And can be accessed outside for loop.\",\"When using let in a for loop, each iteration of the loop creates a new instance of the variable. This is different from var, which shares the same variable across all iterations.\",\"Not possible.\"]]",
@@ -13,21 +15,303 @@
     {
         "id": "n_qp8vdxad",
         "question": "Primitive data types in JS.",
-        "answer":[{
-            "type": "paragraph",
-            "content": "string: Represents a sequence of characters, used for textual data.\nnumber: Represents both integer and floating-point numbers. JavaScript uses double-precision 64-bit floating-point format (IEEE 754) internally.\nbigint: A numeric data type that can represent integers of arbitrary length, larger than the maximum safe integer(Number.MAX_SAFE_INTEGER or 2⁵³ - 1).\n        A BigInt value is created by appending n to the end of an integer or by calling the BigInt() constructor.\nboolean: A logical type that can have only two values: true or false.\nundefined: Represents a variable that has been declared but has not been assigned a value. JavaScript automatically assigns this value by default.\nnull: Represents an intentional absence of any value. The typeof operator returns \"object\" for null, which is a known historical error in JavaScript.\nsymbol: A unique and immutable value that can be used as an identifier for object properties.",
-            "meta": {}
-        }]
+        "topic": "Data Type and Variables",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ol><li><span style=\"color: inherit;\"><b>string:</b> Represents a sequence of characters, used for textual data.&nbsp;</span></li><li><span style=\"color: inherit;\"><b>number:</b> Represents both integer and floating-point numbers. JavaScript uses double-precision 64-bit floating-point format (IEEE 754) internally.&nbsp;</span></li><li><span style=\"color: inherit;\"><b>bigint:</b> A numeric data type that can represent integers of arbitrary length, larger than the maximum safe integer(Number.MAX_SAFE_INTEGER or 2⁵³ - 1). A BigInt value is created by appending n to the end of an integer or by calling the BigInt() constructor.&nbsp;</span></li><li><span style=\"color: inherit;\"><b>boolean:</b> A logical type that can have only two values: true or false.&nbsp;</span></li><li><span style=\"color: inherit;\"><b>undefined:</b> Represents a variable that has been declared but has not been assigned a value. JavaScript automatically assigns this value by default.&nbsp;</span></li><li><span style=\"color: inherit;\"><b>null:</b> Represents an intentional absence of any value. The typeof operator returns \"object\" for null, which is a known historical error in JavaScript.&nbsp;</span></li><li><span style=\"color: inherit;\"><b>symbol:</b> A unique and immutable value that can be used as an identifier for object properties.</span></li></ol>",
+                "meta": {}
+            }
+        ]
     },
     {
         "id": "n_ryfkebcy",
         "question": "symbol() data type in javascript",
-        "answer":[{
-            "type": "code",
-            "content": "Symbols are new primitive built-in object types introduced as part of ES6.\nSymbols are often used to add unique property keys to an object that won't collide with keys any other code might add to the object, \nand which are hidden from any mechanisms other code will typically use to access the object.\n\nconst sym1 = Symbol();\nconst sym = new Symbol(); -- TypeError\nconst sym2 = Symbol(\"foo\");\nconst sym3 = Symbol(\"foo\");\nconsole.log(sym2 == sym3) -- false\nconsole.log(typeof sym2); -- symbol\n\n---- use cases of Symbols -----\nconst user = { name: \"John Doe\" };\nconst secretId = Symbol('secret-id');\n\nAdd a property using a Symbol key\nuser[secretId] = '12345';\n\nconsole.log(user.name); -- \"John Doe\"\nconsole.log(user[secretId]); -- \"12345\"\n\nThe symbol property is ignored by standard enumeration\nfor (const key in user) {\n  console.log(key); -- Only logs \"name\"\n}\n\n---- Can be used to create Enum like properties -----\nconst CarState = Object.freeze({\n  DRIVE: Symbol('drive'),\n  IDLE: Symbol('idle'),\n});\n\nfunction changeCarState(car, newState) {\n  if (newState === CarState.DRIVE) {\n    console.log('Wroom, wroom!');\n    car.state = newState;\n  } else if (newState === CarState.IDLE) {\n    console.log('Waiting for ya!');\n    car.state = newState;\n  }\n}",
-            "meta": {
-                "language": "javascript"
+        "topic": "Data Type and Variables",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "code",
+                "title": "",
+                "content": "Symbols are new primitive built-in object types introduced as part of ES6.\nSymbols are often used to add unique property keys to an object that won't collide with keys any other code might add to the object, \nand which are hidden from any mechanisms other code will typically use to access the object.\n\nconst sym1 = Symbol();\nconst sym = new Symbol(); // TypeError\nconst sym2 = Symbol(\"foo\");\nconst sym3 = Symbol(\"foo\");\nconsole.log(sym2 == sym3) // false\nconsole.log(typeof sym2); // symbol\n\n//---- use cases of Symbols -----\nconst user = { name: \"John Doe\" };\nconst secretId = Symbol('secret-id');\n\n// Add a property using a Symbol key\nuser[secretId] = '12345';\n\nconsole.log(user.name); // \"John Doe\"\nconsole.log(user[secretId]); // \"12345\"\n\n// The symbol property is ignored by standard enumeration\nfor (const key in user) {\n  console.log(key); // Only logs \"name\"\n}\n\n//---- Can be used to create Enum like properties -----\nconst CarState = Object.freeze({\n  DRIVE: Symbol('drive'),\n  IDLE: Symbol('idle'),\n});\n\nfunction changeCarState(car, newState) {\n  if (newState === CarState.DRIVE) {\n    console.log('Wroom, wroom!');\n    car.state = newState;\n  } else if (newState === CarState.IDLE) {\n    console.log('Waiting for ya!');\n    car.state = newState;\n  }\n}",
+                "meta": {
+                    "language": "javascript"
+                }
             }
-        }]
+        ]
+    },
+    {
+        "id": "n_ml2xs1k5",
+        "question": "Prototype and Prototype Chaining in JavaScript.",
+        "topic": "Objects and Prototypes",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ul><li><b>Prototype </b>is a mechanism using which JavaScript inherits features from one another.&nbsp;</li><li>All objects in JavaScript have a prototype as internal property. A prototype is an object from which another object inherits properties and methods.&nbsp;</li><li>When we try to access a property or method on an object, JavaScript first checks whether that property or method exists on the object itself. If it doesn’t find it, it searches the prototype of that object. This process continues until it find the desired property/method or until an object is reached with null as its prototype, the last in the prototype chain. This process is known as <b>prototype chaining</b>.</li></ul>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "const employee = {\n    name: \"John Doe\",\n    age: 30,\n    position: \"Software Engineer\",\n}\n\n-- Here we are creating a new object \"newEmp\" that inherits from \"employee\"\n-- The newEmp object will have access to all properties of the employee object through the prototype chain\nlet newEmp = Object.create(employee);\nnewEmp.gender = \"Male\";\n\nconsole.log(newEmp); -- Output: {gender: \"Male\"}, it only shows the own properties of newEmp\nconsole.log(newEmp.name); -- Output: {name: \"John Doe\"}, it accesses the name property through the prototype chain\n\n-- newEmp.[[Prototype]] has properties gender.\n-- newEmp.[[Prototype]].[[Prototype]] is Object.prototype.\n-- Finally, newEmp.[[Prototype]].[[Prototype]].[[Prototype]] is null.\n-- This is the end of the prototype chain, as by definition null has no [[Prototype]].\n-- Thus, the full prototype chain looks like:\n-- { gender: \"Male\" } ---> { name: \"John Doe\", age: 30, position: \"Software Engineer\" } ---> Object.prototype ---> null\n\n-- Both of the following lines will show the prototype of newEmp, which is the employee object\nconsole.log(newEmp.__proto__);\nconsole.log(Object.getPrototypeOf(newEmp));",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_oao2nn0y",
+        "question": "Property Shadowing in JS Objects.",
+        "topic": "Objects and Prototypes",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "code",
+                "title": "",
+                "content": "const obj = {\n    a: 1,\n    b: 2,\n    c: 3\n}\n\nconst newObj = Object.create(obj);\nnewObj.c = 4;\nconsole.log(newObj.c); //O/P will be 4, \n\n// As \"c\" is the own property of newObj and prototype(obj) also has a \"c\" property, but it is not visited.\n// This is called Property Shadowing",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_vmc2321t",
+        "question": "How to add/override method/property in prototype of objects?",
+        "topic": "Objects and Prototypes",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "code",
+                "title": "",
+                "content": "let arr = [1,2,3,4];\nconsole.log(arr.sum()); // TypeError: arr.sum is not a function\n\n// Getting error because there is no default function named sum().\n// We can add a function directly in prototype of Array().\nArray.prototype.sum = function() {\n    return this.reduce((acc, red) => {\n        return acc+red;\n    }, 0);\n}\nconsole.log(arr.sum()); // 10",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_y4dasedq",
+        "question": "Prototype Vs __proto__ (dunder proto).",
+        "topic": "Objects and Prototypes",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "table",
+                "title": "",
+                "content": "[[\"Prototype\",\"__proto__ (Dunder proto) or (Double Underscore proto)\"],[\"It is the property of class.\",\"It is the property of instance of that class.\"],[\"All the object constructors have prototype properties.\",\"All the objects have proto property.\"],[\"When a constructor is used to instantiate a new object, ConstructorName.prototype is set as the property of new object.\",\"proto exposes the hidden [[Prototype]] and allows us to modify it.\"],[\"All instances of that constructor can access the property of ConstructorName.prototype.\",\"It's deprecated now. Should avoid using.\"],[\"Arrow functions and methods defined using concise syntax don't have prototype.\",\"Object.getPrototypeOf(obj) and Object.setPrototypeOf(obj, customProto) are modern way of accessing it.\"],[\"Introduced in ECMAScript 6.\",\"Introduced in ECMAScript 5.\"]]",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_z29ulahr",
+        "question": "Is Everything Object in JS? Reality Check.",
+        "topic": "Objects and Prototypes",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "code",
+                "title": "",
+                "content": "// No, not everything is an object in JavaScript. Many things like(strings, numbers, Booleans) are primitives, not objects.\n// Unlike objects, primitive values are immutable.\n\nlet temp = \"Hello World\";\ntemp.c = \"Test\"; // Wont throw any compile/runtime error\nconsole.log(temp); // Hello World\nconsole.log(temp.c); // undefined, because temp is a primitive value and not an object, so it cannot have properties\n\n// But if we uses constructor classes to create any primitive data then it will behave like Object:\nlet temp1 = new String(\"Hello World\"); // In this case temp1 will be of type Object.\ntemp1.c = \"Test\";\nconsole.log(temp1); // [String: \"Hello World\"] { c: \"Test\" }, because temp1 is an object created using the String constructor, so it can have properties.\nconsole.log(temp1.valueOf()); // Hello World, because temp1 is an object created using the String constructor, valueOf method will return the primitive string value.\nconsole.log(temp1.c); // Test, because temp1 is an object created using the String constructor, so it can have properties.\nconsole.log(typeof temp1); // object, because temp1 is an object created using the String constructor, so its type is object\nconsole.log(str.__proto__ === String.prototype); // true\n\n// However Functions are fully-fledged objects, and inherit from Object (actually Object.prototype).\n// Functions therefore can do anything objects can, including having properties.",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "\n/**\n * So, why often we hear that everything in JS is Object.\n * The situation is complicated by the fact that whenever we create primitives, \n * JavaScript takes the Prototype methods of it and creates the object wrappers \n * (String, Number and Boolean) and attaches it with __proto__.\n * \n * NOTE: These objects have methods and properties while the primitives do not.\n */\n\n\n/**\n * Behind the scene JS\n * 1. Created a wrapper String object from s, equivalent to using new String(s)\n * 2. Called the substring() method with the appropriate parameters on the String object returned by step 1\n * 3. Disposes the String object\n * 4. Returned the string (primitive) from step 2.\n * \n * So, If we will check the __proto__ of every primitive/non-primitive data, it will be ended with Object.\n */\nvar s = \"foo\";\nvar sub = s.substring(1, 2); // sub is now the string \"o\"\n\n\nlet str = \"Hello World\";\nconsole.log(str.__proto__ === String.prototype); //true\nconsole.log(str.__proto__.__proto__ === Object.prototype); //true\nconsole.log(str.__proto__.__proto__.__proto__); //null\n\nlet num = 5;\nconsole.log(num.__proto__ === Number.prototype); //true\nconsole.log(num.__proto__.__proto__ === Object.prototype); //true\nconsole.log(num.__proto__.__proto__.__proto__); //null\n\nfunction add() {\n    return 1+2;\n}\nconsole.log(add.__proto__ === Function.prototype); //true\nconsole.log(add.__proto__.__proto__ === Object.prototype); //true\nconsole.log(add.__proto__.__proto__.__proto__); //null",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_plqelyjr",
+        "question": "Optional Chaining(.?) and Nullish Coalescing(??)",
+        "topic": "Objects and Prototypes",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ul><li>It provides concise and safe way to handle null and undefined value to prevent runtime errors.&nbsp;</li><li>Optional chaining and nullish coalescing introduced in ES2020.&nbsp;</li><li>These two operators are often used together to safely access a deeply nested property and provide a sensible default value if the chain returns undefined.&nbsp;</li></ul><span style=\"color: inherit;\">const user = getUserById(id);&nbsp;</span><div><span style=\"color: inherit;\">const address = user?.address ?? user.address : getAddressById(id);</span></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "Optional Chaining",
+                "content": "// The optional chaining operator provides a way to safely access nested object properties, \n//   array elements, or call functions that might not exist.\n\n// If at any point in the chain a reference is null or undefined, \n//   the expression short-circuits and returns undefined instead of throwing a TypeError.\n\nconst user = {\n  name: 'Ana',\n  contact: {\n    email: 'ana@mail.com'\n  }\n};\nconst email = user.contact?.email; // \"ana@mail.com\"\nconst phone = user.details?.phone; // undefined (prevents error if 'details' is missing)\nuser.contact.onConnect?.(); // Calls the function if it exists, otherwise does nothing\n",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "Nullish Coalescing",
+                "content": "// The nullish coalescing operator is a logical operator that provides a default value \n//   when the left-hand operand is specifically null or undefined.\n// It is an improvement over the logical OR (||) operator because it treats falsy values \n//   like 0, false, or \"\" (empty string) as valid, not triggering the default value.\n\nconst count = 0;\nconst text = \"\";\n\nconst qty = count || 42;         // qty is 42 (because 0 is falsy)\nconst message = text || \"hi!\";   // message is \"hi!\" (because \"\" is falsy)\n\nconst safeQty = count ?? 42;     // safeQty is 0 (because 0 is not nullish)\nconst safeMessage = text ?? \"hi!\"; // safeMessage is \"\" (because \"\" is not nullish)\n",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_7g99r5tb",
+        "question": "Built in methods of Object.",
+        "topic": "Objects and Prototypes",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ul><li><b>Object.assign():</b>&nbsp;<span style=\"color: inherit;\">Copies all enumerable own properties from one or more source objects to a target object. It returns the modified target object.</span></li></ul><div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;const target = { a: 1, b: 2 };</div><div>&nbsp; &nbsp; &nbsp; &nbsp; const source = { b: 4, c: 5 };</div><div><br></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;const returnedTarget = Object.assign(target, source);</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;console.log(target);&nbsp;<span style=\"color: inherit;\">// Expected output: Object { a: 1, b: 4, c: 5 }</span></div><div><span style=\"color: inherit;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;console.log(returnedTarget === target);&nbsp;</span><span style=\"color: inherit;\">// Expected output: true</span></div><div><ul><li><b>Object.create():</b> Creates a new object, using an existing object as the prototype of the newly created object.</li></ul>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;const person = {<span style=\"color: inherit;\">&nbsp;isHuman: true, isAdult: false&nbsp;</span><span style=\"color: inherit;\">};</span></div><div><span style=\"color: inherit;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;const me = Object.create(person);</span></div><div><span style=\"color: inherit;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;me.name = \"Matthew\"; // \"name\" is a property set on \"me\", but not on \"person\"</span></div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;me.isAdult = true; // Inherited properties can be overwritten</div><div><ul><li><b>Object.defineProperties():</b> Defines new or modifies existing properties directly on an object, returning the object.</li></ul>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Default values: configurable = true, enumerable = false, data = undefined, writable = false</div><div><ul><li><b>Object.defineProperty():</b> Defines a new property directly on an object, or modifies an existing property on an object, and returns the object.\\</li></ul>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;By default, properties added using Object.defineProperty() are not writable, not enumerable, and not configurable.&nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;In addition, Object.defineProperty() uses the [[DefineOwnProperty]] internal method, instead of [[Set]],&nbsp;</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;so it does not invoke setters, even when the property is already present.</div>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_s1keci4f",
+        "question": "Property Descriptors: Enumerable, Configurable and Writable.",
+        "topic": "Objects and Prototypes",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "Definition and type of Property Descriptors",
+                "content": "<div>Every object property has a set of invisible attributes containing metadata associated with that property, called \"property descriptors\".</div><div>There are two types of descriptors associated with any property&nbsp;<i>data descriptors</i> and <i>accessor descriptors</i>.</div><div><br></div><div>A <i>data descriptor</i> includes key and value pairs that contain a property's value.</div><div><i>Accessor descriptors</i> contain functions that execute when a property is set, changed, or accessed.</div><div><br></div><div><div>Data descriptors -- Value, Writable</div><div>Accessor descriptors -- Get, Set</div><div>Both -- Configurable, Enumerable</div></div><div><br></div>JS object has a config, besides value it contains three more property as writable, enumerable and configurable(so-called flags).",
+                "meta": {}
+            },
+            {
+                "type": "table",
+                "title": "Default value of descriptors for different way of Object creation.",
+                "content": "[[\"\",\"using Object literals\",\"using new keyword\",\"using Object.defineProperty()\"],[\"Writable\",\"true\",\"true\",\"false\"],[\"Enumerable\",\"true\",\"true\",\"false\"],[\"Configurable\",\"true\",\"true\",\"false\"],[\"Get/Set\",\"undefined\",\"undefined\",\"undefined\"]]",
+                "meta": {}
+            },
+            {
+                "type": "paragraph",
+                "title": "Definition of Enumerable, Configurable and Writable.",
+                "content": "<ul><li><b>Writable</b>:&nbsp;Determines whether you can change the property's value.</li><li><b>Enumerable</b>:&nbsp;If this is true, we can iterate over the property using for...in loops or the Object.keys() static method.</li><li><b>Configurable</b>:&nbsp;If this is false, the property can't be deleted and its attributes can't be changed. If this is false and [[Writable]] is true, the property's value can still be changed(we can change writable from true to false, but not back).</li></ul>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_u31hyi9m",
+        "question": "Getters/Setters uses and their benefits.",
+        "topic": "Objects and Prototypes",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "code",
+                "title": "",
+                "content": "/**\n * getters and setters are special methods(known as accessor properties) that provide controlled access to object data, \n * allowing us to execute logic when a property is retrieved or modified\n */\nlet person = {\n    firstName: 'Aston',\n    lastName: 'Martin',\n    score: 754,\n    /**\n     * Computed Properties: Getters can dynamically calculate a value based on other properties, \n     * so the value is always up-to-date.\n     * \n     * Read-Only/Write-Only Properties: By defining a getter without a setter, we can create a read-only property.\n     * Here fullName is readOnly property\n     */\n    get fullName() {\n        return `${this.firstName} ${this.lastName}`;\n    },\n    /**\n     * Data Validation: Setters can enforce rules and validation logic before a value is stored, ensuring data integrity.\n     * Here age is writeOnly property\n     */\n    set age(num) {\n        if(num<1) return; \n        age = num;\n    },\n    /**\n     * Encapsulation: They hide the internal implementation details of properties, allowing us to manage data access.\n     */\n    get isEligibleForAdmission() {\n        if(this.score < 750) return false;\n        return true;\n    }\n}\n\nconsole.log(person.fullName); //Aston Martin\nperson.fullName = 'Test Name';\nconsole.log(person.fullName); //Aston Martin\nperson.age = 34;\nconsole.log(person.age); //undefined(WriteOnly Property)\nconsole.log(person.isEligibleForAdmission); //true\n",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_0uqda7d1",
+        "question": "Naming convention of getter, setter, private fields in modern JS.",
+        "topic": "Data Type and Variables",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "code",
+                "title": "",
+                "content": "class Account {\n  #balance = 0; // Truly private field (ES2022 syntax)\n\n  set _creditAmount(amount) {\n    if(amount > this.#balance) {\n      console.log('Insufficient Amount');\n      return;\n    }\n    this.#balance -= amount;\n  }\n\n  // Setter with validation\n  set _depositAmount(amount) {\n    if (amount < 0) {\n      console.log(\"Balance cannot be negative!\");\n    } else {\n      this.#balance += amount;\n    }\n  }\n}\n\nconst acc = new Account();\nacc._depositAmount(500);\nacc._creditAmount(100); // Setter is used (validation runs)\nacc._depositAmount(-50); // Output: Balance cannot be negative! (validation prevents bad data)",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_mwl7hwi3",
+        "question": "Scope and Scope Chaining in JS.",
+        "topic": "Core Concepts",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "Scope",
+                "content": "<span style=\"background-color: rgba(0, 0, 0, 0.05);\">Scope determines the accessibility of property. It defines where it can be accessed.</span><div><div>Types of Scope:&nbsp;</div><div><ul><li><b>Global Scope:</b>&nbsp;Variables declares outside the function/block can be accessed globally.</li><li><b>Function Scope:</b>&nbsp;Variables declares inside the function are only accessible within the function. Each time a function is called it will create a new scope.</li><li><b>Block/Local Scope(ES6):</b>&nbsp; Identifiers declared with certain syntaxes, including let, const, class, or (in strict mode) function&nbsp;are block scoped. Can be accessed only inside&nbsp;<b>{}</b>&nbsp;it's declared.</li><li><b>Module Scope:</b>&nbsp;Code running in a JavaScript module (using &lt;script type=\"module\"&gt; or import/export) has a module scope. Variables declared at top level of a module are accessible within the module but not globally in the window Object.</li></ul></div></div>",
+                "meta": {}
+            },
+            {
+                "type": "paragraph",
+                "title": "Scope Chaining",
+                "content": "The scope chaining is mechanism/path/hierarchy that JS follows to look for any variable. If variable not found in the current scope it will look outward until it finds the variable or reaches the Global Scope.<div><br></div><div>If not found in Global scope also then it will throw<b>&nbsp;ReferenceError: y is not defined</b></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "var i=0;\nvar j=0;\nfunction a() {\n    console.log(i); // Prints 0\n    console.log(j); // Prints 0\n    function b() {\n        console.log(i); // Prints 0\n        console.log(k); // undefined (due to hoisting, k is declared but not initialized yet)\n        console.log(j); // undefined (due to hoisting, j is declared but not initialized yet)\n        //although j was declared in the outer scope, it is hoisted to the top of func b, so it shadows(property overshadowing) the outer j.\n        i = 1;\n        var j = 1;\n        var k = 1;\n        console.log(i); // Prints 1\n        console.log(j); // Prints 1\n        console.log(k); // Prints 1\n    }\n    b();\n    console.log(i); // Prints 1\n    console.log(j); // Prints 0, the j inside function b does not affect the j in function a due to function scope\n    console.log(k); // ReferenceError: k is not defined (k is function-scoped to b)\n}\na();",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_7ssn71by",
+        "question": "Lexical Environment",
+        "topic": "Core Concepts",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ul><li><span style=\"color: rgb(10, 10, 10); font-family: &quot;Google Sans&quot;, Arial, sans-serif; font-size: 16px;\">Lexical environment provides the rules for variable accessibility and scope chaining, ensuring that inner functions can access variables from their outer scopes but not vice-versa.</span></li><li><span style=\"color: rgb(10, 10, 10); font-family: &quot;Google Sans&quot;, Arial, sans-serif; font-size: 16px;\">Every lexical environment consist of two main part:</span></li></ul><ol><li><span style=\"color: rgb(10, 10, 10); font-family: &quot;Google Sans&quot;, Arial, sans-serif; font-size: 16px;\"><b>Environment Record:</b>&nbsp;</span><span style=\"color: rgb(10, 10, 10); font-family: &quot;Google Sans&quot;, Arial, sans-serif; font-size: 16px;\">An object that stores all local variables, functions, and arguments declared within that specific scope. It acts as the actual storage for the data.</span></li><li><span style=\"color: rgb(10, 10, 10); font-family: &quot;Google Sans&quot;, Arial, sans-serif; font-size: 16px;\"><b>Outer Lexical environment reference:</b>&nbsp;</span><span style=\"color: rgb(10, 10, 10); font-family: &quot;Google Sans&quot;, Arial, sans-serif; font-size: 16px;\">A pointer to the parent lexical environment (the scope surrounding the current one in the code). This reference is crucial for the scope chain mechanism.</span></li></ol><div><ul><li><font color=\"#0a0a0a\" face=\"Google Sans, Arial, sans-serif\">Lexical environment is created when a function is defined, capturing its surrounding scope. Additionally, a new lexical environment is created each time the function or block of code is invoked and destroyed when returns, which holds the function’s local variables and parameters.</font></li></ul></div>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_4lrgrhyq",
+        "question": "Closures in JS.",
+        "topic": "Core Concepts",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "code",
+                "title": "",
+                "content": "/**\n * A closure is a function that has access to its own scope, the outer function's scope, and the global scope.\n * It allows the inner function to access variables from the outer function even after the outer function has finished executing.\n * \n * In this example, the `makeCounter` function creates a closure that retains access to the `count` variable, \n * allowing the returned function to increment and return the count value each time it is called.\n * This demonstrates how closures enable functions to maintain state and access variables from their enclosing scope, \n * making them powerful tools for creating private variables and functions in JavaScript.\n * \n * A closure is the combination of a function bundled together(enclosed) with references to its surrounding state(the lexical environment).\n */\nfunction makeCounter() {\n    let count = 0;\n    return function() {\n        count++;\n        return count;\n    };\n}\n\nconst counter = makeCounter(); // Create a new counter instance\nconsole.log(counter()); // Output: 1, the count variable is accessed and incremented\nconsole.log(counter()); // Output: 2, the count variable retains its value between calls\nconsole.log(counter()); // Output: 3, the count variable continues to be updated and accessed through the closure",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_6b2bvt6j",
+        "question": "Temporal dead Zone and Hoisting.",
+        "topic": "Core Concepts",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<div><b>Hoisting </b>is a behavior where declarations of variables, functions, and classes are conceptually moved to the top of their containing scope during the compilation phase, before the code is executed.</div><div><br></div>A variable declared with let, const, or class is said to be in a \"<b>temporal dead zone</b>\" (TDZ) from the start of the block until code execution reaches the place where the variable is declared and initialized.<div>The Temporal Dead Zone (TDZ) in JavaScript is a period within a variable's scope where it exists due to hoisting but cannot be accessed until its declaration is executed and it is initialized with a value.</div>",
+                "meta": {}
+            },
+            {
+                "type": "table",
+                "title": "",
+                "content": "[[\"Feature\",\"Hoisted\",\"Is Initialized\",\"Can Access\"],[\"Function Declaration\",\"Yes\",\"Name along with Full body\",\"Will work as normal.\"],[\"var\",\"Yes\",\"undefined\",\"Yes(Undefined)\"],[\"let/const\",\"Yes\",\"No (TDZ)\",\"Reference Error\"],[\"Function Expressions & Arrow Functions\",\"Only name\",\"Declared with var - undefined. Declared with let/const - TDZ.\",\"var - TypeError(as it is undefined). let/const - Reference Error.\"]]",
+                "meta": {}
+            }
+        ]
     }
 ]
