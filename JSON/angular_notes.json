@@ -1,0 +1,110 @@
+[
+    {
+        "id": "n_ppaorjxm",
+        "question": "How can we configure port number in Angular?",
+        "topic": "Core Concepts",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ol><li>ng serve --port &lt;port number&gt;</li><li>Add configuration in angular.json file inside:&nbsp;&nbsp;<b>projects</b> --&gt; <b>&lt;app name&gt;</b> --&gt; <b>architect </b>--&gt; <b>serve </b>--&gt; <b>{\"options\": {\"port\": &lt;port number&gt;}}&nbsp;</b></li></ol>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_mjnh3qyh",
+        "question": "Benifits of using Router.",
+        "topic": "Core Concepts",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ul><li><b>Improved User Experience:</b> Routing allows users to navigate between different views or pages without actually loading a new HTML page from the server (SPA). Instead, the application dynamically updates the content in the browser by loading the necessary components and data based on the requested route.</li><li><b>Faster Page Transitions:</b> With routing, only the necessary components and data for the requested route are loaded, resulting in faster page transitions.</li><li><b>Modularity and Maintainability:</b> Routing encourages a modular structure for the application by separating it into different components associated with specific routes. This promotes code reusability and better maintainability. Each route can have its own component, making it easier to manage and update specific sections of the application independently.</li><li><b>Conditional Rendering and Dynamic Content:</b> Routing enables conditional rendering of components based on the current route. This allows us to show or hide certain sections of the application based on the route path.</li><li><b>Route Parameters and Query Parameters:</b> Routing supports passing route parameters and query parameters. Route parameters allow us to pass dynamic values within the URL, such as an ID or a username. Query parameters provide a way to pass additional data into the URL for filtering, sorting, or other purposes.</li><li><b>Route Guards and Security:</b> Angular routing includes route guards, which is mechanism to control access to specific routes based on certain conditions. Route guards can be used for authentication, authorization, and other security-related purposes.</li><li><b>Nested Routes:</b> Routing supports nested or child routes, allowing us to define a hierarchical navigation structure within the application.</li></ul>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_rfd3e5d9",
+        "question": "Various States of Form in Angular.",
+        "topic": "Forms",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<ol><li><b>Pristine:</b> The value of form control has not been modified yet.</li><li><b>Dirty:</b> The value of form control has been changed.</li><li><b>Untouched:</b> The form control has not been blurred/focused yet.</li><li><b>Touched:</b> Form control has been touched(Blurred/focused).</li><li><b>Valid:</b> Form control values are valid.</li><li><b>Invalid:</b> All/any form control value is invalid.</li><li><b>Pending:</b> Validation of form control is in progress.</li><li><b>Disabled:</b> Control value is disabled.</li></ol><div><b>Pristine vs Untouched:</b> When form control is only focused/blurred/clicked it will be touched not dirty(Still Pristine). To make it dirty we need to modify the default value of controls. In Simple terms Dirty meaning whether we have modified the value or not and touched means whether we have touched the field or not.</div>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_hijciy56",
+        "question": "<ng-content/>",
+        "topic": "Components and Templates",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "The &lt;ng-content&gt; element specifies where to project content inside a component template.<div><br></div><div>ng-content is a directive that allows us to project content from a parent component into a child component. This is especially useful when we want to create reusable components that can accept dynamic content from their parent components.</div><div><br></div><div>The &lt;ng-content&gt; element is neither a component nor DOM element. Instead, it is a special placeholder that tells Angular where to render content.</div><div><br></div><div>Angular compiler processes all &lt;ng-content&gt; elements at build-time. We cannot insert, remove, or modify &lt;ng-content&gt; at run time.</div><div><br></div><div>We cannot add directives, styles, or arbitrary attributes to &lt;ng-content&gt;.<i> (&lt;ng-content *ngIf=\"isVisible\"&gt;&lt;/ng-content&gt; NOT ALLOWED).</i></div><div><i><br></i></div><div>We can have multiple &lt;ng-content/&gt; placeholders in single component. To pass data we can use CSS selectors.</div><div>The last one without any selector will be the default placeholder for all other elements coming from parent component.</div><div><br></div><div>Angular supports a special attribute&nbsp;<b>ngProjectAs</b>, that allows to specify a CSS selector on any element.&nbsp;</div><div>It supports only static values and cannot be bound to dynamic expressions.</div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "<!-- parent-component.html -->\n     \n<product-details [product]=\"productDetails\">\n    <!-- This content is using id as selector -->\n    <span id=\"addInfo\">This is additional info passed using ng-content.</span>\n    <!-- This content is using class as selector -->\n    <span class=\"ratings\">This is Rating of product passed using ng-content.</span>\n    <!-- This content is using attribute as selector -->\n    <span review>This is the Review section.</span>\n    <!-- This content is passed without any selector, \n        it will be projected in the default slot -->\n    <span>This is generic info without selector</span>\n    <!-- This content is using ngProjectAs selector -->\n    <span ngProjectAs=\"recently-viewed\">This is list of recently.....</span>\n</product-details>\n\n\n<!-- product-detail.html -->\n    \n<!-- element with id=addInfo will be projected here -->\n<p><strong>Additional Info:</strong> <ng-content select=\"#addInfo\"/></p>\n<!-- element with class=ratings will be projected here -->\n<p><strong>Ratings:</strong> <ng-content select=\".ratings\"/></p>\n<!-- element with attribute review will be projected here -->\n<p><strong>Review:</strong> <ng-content select=\"[review]\"/></p>\n<!-- element without any selector will be projected here -->\n<p><strong>Others:</strong> <ng-content/> </p>\n<!-- currently no element will be projected,\n    as none of them matched the selector -->\n<p><strong>Error:</strong><ng-content select=\".error\"/></p>\n<!-- element with <suggestem-item> will be projected here  -->\n<ng-content select=\"suggested-item\"/>\n<!-- element with ngProjectAs=recently-viewed will be projected here  -->\n<ng-content select=\"recently-viewed\"/>",
+                "meta": {
+                    "language": "html"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_p1b4m324",
+        "question": "<ng-template/>",
+        "topic": "Components and Templates",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "Angular's &lt;ng-template&gt; element defines a template that is not rendered by default.<div>The &lt;ng-template&gt; element lets us declare a template fragment – a section of content that we can dynamically or programmatically render.</div><div><br></div><div>If we wrap content inside an &lt;ng-template&gt; without instructing Angular to render it, such content will not appear on a page.</div><div><br></div><div><span style=\"color: oklch(0.1937 0.006 300.98); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, &quot;Noto Sans&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; font-size: 14px; letter-spacing: -0.14px;\">We can get a reference to a template fragment in one of three ways:</span></div><div><ol><li><font color=\"oklch(0.1937 0.006 300.98)\" face=\"Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji\"><span style=\"font-size: 14px; letter-spacing: -0.14px;\">By declaring a template reference variable on the &lt;ng-template&gt; element.</span></font></li><li>Referencing a template variable using queries.</li><li>Injecting a template fragment.</li></ol></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "<!-- Template Reference -->\n<ng-template #myFragment>\n  <p>This is a template fragment</p>\n</ng-template>\n\n<!-- Template Reference -->\n<ng-template #fragmentOne>\n  <p>This is one template fragment</p>\n</ng-template>\n\nexport class ComponentWithFragment {\n    fragmentOne = viewChild<TemplateRef<unknown>>(\"fragmentOne\");\n}\n\n\n<!-- Injecting Template -->\n<ng-template myDirective>\n  <p>This is one template fragment</p>\n</ng-template>\n\n@Directive({\n  selector: \"[myDirective]\",\n})\nexport class MyDirective {\n  private fragment = inject(TemplateRef);\n}\n",
+                "meta": {
+                    "language": "html"
+                }
+            },
+            {
+                "type": "paragraph",
+                "title": "Rendering Template fragments and passing data",
+                "content": "We can render template fragments in 2 ways:<div><ol><li>Using ngTemplateOutlet</li><li>Using ViewContainerRef</li></ol></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "@let orderList = [{quantity: \"2\", color:\"white\", product:\"Nike Shoe\", type:\"footwear\", price: \"2800\"}];\n@for (item of orderList; track $index) {\n    <!-- This template won't appear on screen \n        as we are not rendering anywhere -->\n    <ng-template>List of Orders</ng-template>\n\n    <!-- Rendering using ngTemplateOutlet -->\n\n    <!-- This will work if no data needs to be passed -->\n    <ng-container *ngTemplateOutlet=\"details\"></ng-container>\n\n    <!-- It will throw error for *ngTemplateOutlet -->\n    <ng-container [ngTemplateOutlet]=\"details\" \n    [ngTemplateOutletContext]=\"{\n        quantity: item.quantity, \n        product: item.product, \n        color: item.color}\">\n    </ng-container>\n\n    \n    <button (click)=\"showAlert()\">Show Alert</button>\n\n    <!-- Rendering using ViewContainerRef -->\n    <button (click)=\"showPrice(cost, item)\">Show Price</button>\n}\n\n<ng-template #details let-count=\"quantity\" let-color=\"color\" let-name=\"product\">\n    Order Description: {{count}} {{color}} colored {{name}}.\n</ng-template>\n\n<ng-template #cost let-count=\"quantity\" let-price=\"price\">\n    Price Details:\n    <p>No Of Items: {{count}}</p>\n    <p>Price Per Unit: {{price}}</p>\n    <hr>\n    <p>Total Price: {{count*price}}</p>\n</ng-template>\n\n<ng-template #alert>This is an alert template</ng-template>",
+                "meta": {
+                    "language": "html"
+                }
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "private viewContainer = inject(ViewContainerRef);\n\n// Refrencing Template using queries\nalertTemplate = viewChild<TemplateRef<any>>('alert');\nshowAlert(): void {\n  this.viewContainer.createEmbeddedView(this.alertTemplate() as TemplateRef<any>);\n}\n\nshowPrice(tempRef: TemplateRef<unknown>, item:any): void {\n  this.viewContainer.createEmbeddedView(tempRef, {quantity: item.quantity, price: item.price});\n}",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    }
+]
