@@ -106,5 +106,253 @@
                 }
             }
         ]
+    },
+    {
+        "id": "n_uwpaghzv",
+        "question": "What is RxJs and it's use cases.",
+        "topic": "RxJS",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<div><div><span style=\"color: inherit;\">RxJs stands for \"Reactive extension for JavaScript\".</span></div><div><br></div><div>It's a library written in JavaScript which helps us to manage asynchronous and event based programs using Observables.</div><div>It also helps in managing complex data flows, user events and HTTP requests reactively.<div><br></div><div>RxJs is based on functional programming fundamentals and implements design patterns like Observable pattern.</div></div></div><div><br></div><div>Key use cases of RxJs:</div><div><ol><li><b>Handling Asynchronous Events:</b> Managing user input events such as click, mouse movements, keystroke by converting them in data streams and using concepts like debounce/filter.</li><li><b>HTTP requests &amp; API calls:</b> Using Observables to manage API calls particularly handling the error situation, cancellation and retries.</li><li><b>Sate Management:</b> Managing complex application states throughout the application using Subjects.</li><li><b>Combining multiple data stream:</b> Merging/combining multiple asynchronous data stream in a single stream.</li><li><b>Real-time data streams:</b> Processing data from WebSocket or live data-stream.</li></ol></div>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_b1i7ftmn",
+        "question": "RxJs Vs Promise Vs Signal",
+        "topic": "RxJS",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "table",
+                "title": "",
+                "content": "[[\"RxJs\",\"Promise\",\"Signal\"],[\"Streams multiple value/events.\",\"Stream only one value then ends.\",\"A single current value(continuous).\"],[\"It's lazy, starts on subscription.\",\"It's loaded eagerly.\",\"It's synchronous, always ready.\"],[\"Can be cancelled if not required.\",\"Can't cancel.\",\"Can't cancel.\"],[\"Code cleanup required manually (unsubscribe).\",\"Code cleanup not required.\",\"Automatic code cleanup.\"],[\"Best for events that happen over time(search bar/WebSocket).\",\"Best for simple one time HTTP Request where cancellation is not required.\",\"Best for managing UI state/sharing data across components.\"]]",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_nttg5p42",
+        "question": "Subject, Behavior Subject, Replay Subject, Async Subject",
+        "topic": "RxJS",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<div><span style=\"color: inherit;\">- A Subject is a special type of Observable that acts as both an observable and an observer,&nbsp;</span><span style=\"color: inherit;\">allowing values to be multicast to multiple subscribers.</span></div><div><br></div><div>- A Subject can be used to create a multicast Observable,&nbsp;<span style=\"color: inherit;\">which means that multiple subscribers can receive the same values emitted by the Subject.</span></div><div>- A Subject can also be used to create a hot Observable,&nbsp;<span style=\"color: inherit;\">which means that the Observable starts emitting values as soon as it is created, regardless of whether there are any subscribers.</span></div><div><br></div><div>There are several types of Subjects in RxJs:</div><div><ol><li><span style=\"color: inherit;\"><b>Subject:</b>&nbsp;</span>The basic Subject that can be used to multicast values to multiple subscribers.&nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Subscribers will only receive values emitted after they subscribe.</li><li><span style=\"color: inherit;\"><b>Behavior Subject:</b> A Subject that requires an initial value and emits the current value to new subscribers.&nbsp;<br></span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&nbsp;Subscribers will receive the most recent value upon subscription, and then continue to receive subsequent values.</li><li><span style=\"color: inherit;\"><b>Replay Subject:</b> A Subject that can buffer a specified number of values and replay them to new subscribers.</span></li><li><span style=\"color: inherit;\"><b>Async Subject:</b> A Subject that only emits the last value to subscribers when the Observable completes.&nbsp;<br></span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&nbsp;This is useful for scenarios where you want to emit last value after an asynchronous operation completes.</li></ol></div><div><br></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "// Subject\nconst sub1 = new Subject<number>();\nsub1.next(1); // This value will not be received by any subscribers because there are no subscribers at this point.\nsub1.subscribe(value => console.log('Subscriber 1:', value));\nsub1.next(2); //Subscriber 1: 2\nsub1.subscribe(value => console.log('Subscriber 2:', value));\nsub1.next(3); //Subscriber 1: 3, Subscriber 2: 3\n\n// Behavior Subject\nconst behaviorSub = new BehaviorSubject<number>(0);\nconst subs1 = behaviorSub.subscribe(value => console.log('Behavior Subscriber 1:', value)); //Behavior Subscriber 1: 0\nbehaviorSub.next(1); //Behavior Subscriber 1: 1\nsubs1.unsubscribe();\nbehaviorSub.subscribe(value => console.log('Behavior Subscriber 2:', value)); //Behavior Subscriber 2: 1\n\n// Replay Subject\nconst replaySub = new ReplaySubject<number>(2);\nreplaySub.next(1);\nreplaySub.subscribe(value => console.log('Replay Subscriber 1:', value)); //Replay Subscriber 1: 1\nreplaySub.next(2); //Replay Subscriber 1: 2\nreplaySub.next(3); // Replay Subscriber 1: 3\nreplaySub.subscribe(value => console.log('Replay Subscriber 2:', value));//Replay Subscriber 2: 2, Replay Subscriber 2: 3\nreplaySub.next(4); // Replay Subscriber 1: 4, Replay Subscriber 2: 4\n\n// Async Subject\nconst asyncSub$ = new AsyncSubject();\nasyncSub$.subscribe(val => console.log('Async Subscriber:', val));\nasyncSub$.next(1);\nasyncSub$.next(2);\nasyncSub$.next(3);\nasyncSub$.next(4);\nasyncSub$.complete(); //Async Subscriber: 4\n",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_gb3w4dk7",
+        "question": "What is the definition of stream?",
+        "topic": "RxJS",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "In RxJs <b>Stream </b>is a sequence of value/event happens over time.<div><br><div>We can consider stream as a continuous flow of data rather than one-time value.<div><div>Unlike array where all data present at once, stream emits data one by one at different point of time.</div></div></div><div><br></div><div>A stream can emit values indefinitely until it is explicitly completed or errors out.</div><div><br></div><div>Stream communicates with its observer through 3 types of signal:</div><div><ol><li><b>next(): </b>A new value arrives in stream.</li><li><b>error():</b> An error occurred and stream stops.</li><li><b>complete(): </b>Stream has finished, will not emit more values.</li></ol></div></div>",
+                "meta": {}
+            },
+            {
+                "type": "table",
+                "title": "Stream Vs Observable",
+                "content": "[[\"Stream\",\"Observable\"],[\"Stream is a sequence of data over time like flow of water.\",\"Observable is blueprint or mechanism(water pipe itself), that defines how to create and manage such stream.\"],[\"It's Pull-based data model. (Consumer decides when to request/pull data from producer)\",\"It's Push-based data model. (The producer decides when to send/push the data to consumer)\"],[\"Designed for single consumption/subscriber.\",\"Multiple subscriber can observe the same data.\"]]",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_fib2klp0",
+        "question": "Observable, Observer and Subscribe",
+        "topic": "RxJS",
+        "complexity": "Basics",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "The <b>Observable </b>is the stream of data, <b>Observer </b>is consumer that defines how to handle the data and <b>Subscribe </b>is the bridge that connects them and starts the data flow.<div><br></div><div><b>Observable:</b> Represents a stream of data that can emit multiple values over time, either synchronously or asynchronously. They are \"lazy,\" meaning they won't start producing values until something subscribes to them.</div><div><br></div><div><b>Observer:</b> An object with callback functions that define how to react to the values emitted by an observable. The observer can have up to three methods: next(data), error(err), complete().</div><div><br></div><div><b>subscribe():</b> This method acts as the bridge connecting the observable and the observer. Calling subscribe() on an observable starts the execution of the observable's logic and begins the flow of data to the observer. It returns a subscription object which can be used to stop the data flow (Unsubscribe).</div><div><br></div><div>Different ways to handle Subscription Management:</div><div><ul><li><b>async pipe</b> automatically handles the subscription and unsubscription.</li><li>For observables that do not complete on their own (like user events or an infinite timer), unsubscription can be done in the <b>ngOnDestroy()</b> lifecycle hook.</li><li>In Angular v16+, we can use the <b>takeUntilDestroyed()</b> operator within a component or service to automatically manage unsubscription without implementing ngOnDestroy() explicitly.</li></ul></div>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_xy3tsnq6",
+        "question": "Merge Map, Exhaust Map, Switch Map, Concat Map",
+        "topic": "RxJS",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<div>These are called flattening operators. Flattening operators convert higher-order Observables (Observables emitting other Observables) into a single, flat Observable.</div><div><br></div><div><div>They all take an outer observable and map it to an inner observable.<div><ul><li><b>Merge Map:</b>&nbsp;It triggers an inner observable for every outer observable value immediately. Everything runs at same time parallelly.<br><br><i>Use Case:</i>&nbsp;Delete multiple values simultaneously, if user clicks rapidly on delete rows, we want to delete all rows parallelly.<br><br></li><li><b>Concat Map:</b>&nbsp;It waits for current inner observable to complete before triggering next. It preserve the order.<br><br><i>Use Case:</i>&nbsp;Add records in sequential manner, If user added multiple skills and requirement is there to add in sequence.<br><br></li><li><b>Switch Map:</b>&nbsp;If a new outer value arrives, it will cancel ongoing inner observable and triggers a new one. It only cares about last value.<br><br><i>Use Case:&nbsp;</i>Most commonly used for auto-search functionality if new value received in input box, we want result only for newer one.<br><br></li><li><b>Exhaust Map:</b>&nbsp;If inner observable is incomplete it will ignore outer observable. It locks the stream.<br><br><i>Use Case:&nbsp;</i>Helpful in preventing the scenarios where user clicks multiple time on button and you want to process the first request.</li></ul></div></div></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "Merge Map",
+                "content": "//Merge Map\ndelEvent$ = new Subject<number>();\n\nngOnInit(): void {\n  this.delEvent$.pipe(\n    mergeMap((id: number) => this.updateApiCall(id, 'deleted'))\n  ).subscribe(x => console.log(x));\n}\n\ndeleteItem(id: number): void {\n  console.log(id);\n  this.delEvent$.next(id);\n}\n\nupdateApiCall(id: number, action: string): Observable<any> {\n  return new Observable((c) => {\n    setTimeout(() => {\n      c.next(`${id} ${action} successfully.`);\n      c.complete()\n    }, id*1000)\n  });\n}\n\n//Console Output(Operation happening Parallelly, not sequential)\n2\n1\n3\n1 deleted successfully.\n2 deleted successfully.\n3 deleted successfully.",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "Concat Map",
+                "content": "//ConcatMap\naddEvent$ = new Subject<number>();\n\nngOnInit(): void {\n  this.addEvent$.pipe(\n    concatMap((id: number) => this.updateApiCall(id, 'added'))\n  ).subscribe(x => console.log(x));\n}\n\naddItem(id: number): void {\n  console.log(id);\n  this.addEvent$.next(id);\n}\n\nupdateApiCall(id: number, action: string): Observable<any> {\n  return new Observable((c) => {\n    setTimeout(() => {\n      c.next(`${id} ${action} successfully.`);\n      c.complete()\n    }, id*1000)\n  });\n}\n\n//Console Output(Operation happening in sequence)\n2\n1\n3\n2 added successfully.\n1 added successfully.\n3 added successfully.",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "Switch Map",
+                "content": "<form>\n    <input type=\"text\" name=\"searchField\" \n    id=\"searchField\" [formControl]=\"searchControl\">\n</form>\n\nsearchControl = new FormControl(\"\");\nsearchResult$ = this.searchControl.valueChanges.pipe(\n  // Only proceed if new value is different\n  distinctUntilChanged(),\n\n  switchMap(val => this.searchApi(val as string).pipe(\n    catchError(() => \"\")\n  ))\n);\n\nsearchApi(val: string): Observable<any> {\n  console.log(\"Search API-\", val)\n  return new Observable((c) => {\n    setTimeout(() => {\n      c.next(`Searching for ${val}.`)\n    }, 3000)\n  });\n}\n\n//Console output\nSearch API- c\nSearch API- co\nSearch API- cow\n\nSearching for cow.",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "Exhaust Map",
+                "content": "//Exhaust Map\nrefreshEvent$ = new BehaviorSubject(0);\n\nngOnInit(): void {\n  this.refreshEvent$.pipe(\n    exhaustMap((count) => this.refreshAPI(count))\n  ).subscribe(x => console.log(x));\n}\n\nrefreshClick(): void {\n  const val = this.refreshEvent$.value + 1;\n  console.log(\"Refresh content: \", val);\n  this.refreshEvent$.next(val);\n}\n\nrefreshAPI(count: number): Observable<any> {\n  return new Observable((obs) => {\n    setTimeout(() => {\n      obs.next(`Refreshed content for ${count}`)\n      obs.complete()\n    }, 3000);\n  });\n}\n\n//Console Output\nRefresh content:  1\nRefresh content:  2\nRefresh content:  3\nRefreshed content for 1\nRefresh content:  4\nRefreshed content for 4",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_lgtimra9",
+        "question": "mergeAll, concatAll, switchAll, and exhaustAll",
+        "topic": "RxJS",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "All are flattening operators, key difference between these and the map versions(e.g. mergeMap()) is that these operators don't perform mapping.<div><br><div>They will only do flattening for observables available in stream.</div><div><br></div><div>Technically every map operator is combination of map() and all operator<br>e.g. mergeMap() = map() + mergeAll()</div></div><div><br></div><div><ul><li>mergeAll(): It subscribes to every inner observable as soon as they arrive parallelly.</li><li>concatAll(): It subscribes to every inner observable one after another in sequential manner.</li><li>switchAll(): As soon as new observable will arrive it will cancel previous subscription and starts the new one.</li><li>exhaustAll(): It ignores new observable until on going one is not completed.</li></ul></div>",
+                "meta": {}
+            }
+        ]
+    },
+    {
+        "id": "n_r1cv84cu",
+        "question": "combineLatest, forkJoin, concat, merge, race, zip",
+        "topic": "RxJS",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<div>These are known as <b>combination operators</b>,&nbsp;<span style=\"color: inherit;\">we use them when we need to join information&nbsp;</span><span style=\"color: inherit;\">from multiple observables.</span></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "combineLatest()",
+                "content": "/** combineLatest(): It emits an array/object containing latest value \n * from each observable once all source emits at least one value, \n * then onwards it emits the updated array if any source emits.\n */\n\nbalance$ = new Observable<number>();\nprivate getCurrencyRate$ = new BehaviorSubject(90);\nprivate getBalance$ = new BehaviorSubject(1000);\n\nngOnInit(): void {\n  this.balance$ = combineLatest([\n    this.getBalance$,\n    this.getCurrencyRate$\n  ]).pipe(\n    map(([bal, rate])=> bal*rate)\n  );\n}\n\n//template\n{{balance$ | async}}\n//It will be get updated when either balance/rate will change.",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "forkJoin()",
+                "content": "/**\n * ForkJoin: It waits for all observables to finish,\n * then emits a single array of the last value from each source.\n * It maintains order and does not interleave emission.\n * \n * If any of the source never completes/give error, \n * forkJoin will never emit value.\n */\n\n  this.getUserId().pipe(\n    concatMap(val => forkJoin({\n      userDetails: this.getProfileDetails(val.id),\n      orderDetails: this.getOrderDetails(val.id)\n    }))\n\n    // If wan't to combine in array\n    // concatMap(val => forkJoin([\n    //   this.getProfileDetails(val.id),\n    //   this.getOrderDetails(val.id)\n    // ]))\n  ).subscribe(x=> console.log(x));\n\n//Console Output\n{\n    \"userDetails\": {\n        \"name\": \"Test Name\",\n        \"age\": 24,\n        \"isPremium\": true\n    },\n    \"orderDetails\": [\n        {\n            \"orderId\": \"as234\",\n            \"price\": 23442,\n            \"addressId\": \"ad382829\",\n            \"statusCd\": \"D\"\n        },\n        {\n            \"orderId\": \"as236\",\n            \"price\": 89743,\n            \"addressId\": \"ad382829\",\n            \"statusCd\": \"O\"\n        }\n    ]\n}",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "concat()",
+                "content": "/**\n * concat(): It subscribes to Observables one after another \n * in sequence and emits all values from the current Observable\n * before subscribing to the next one. \n * \n * It maintains order and does not interleave emissions.\n */\n\nprivate name$ = of('Aman', 'Ram', 'Joy');\nprivate age$ = interval(3000).pipe(take(3));\n\nconcat(\n  this.age$,\n  this.name$,\n).subscribe(val => console.log(val));\n\n//Console Output\n0\n1\n2\n//It will wait 3sec to fetch, then triggers 2nd observable\nAman\nRam\nJoy",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "merge()",
+                "content": "/**\n * merge(): Combines multiple Observables into a single \n * output Observable that emits values from all merged \n * Observables concurrently, as they occur. \n * \n * Doesn't maintains order.\n */\n\nprivate name$ = of('Aman', 'Ram', 'Joy');\nprivate age$ = interval(3000).pipe(take(3));\n\nmerge(\n  this.age$,\n  this.name$,\n).subscribe(val => console.log(val));\n\n//Console Output\n//It won't wait for 1st observable to get finished\nAman\nRam\nJoy\n0\n1\n2",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "zip()",
+                "content": "/**\n * zip(): Combines values from multiple Observables \n * by pairing them in sequence (the first value of A \n * with the first value of B). It emits a combined array \n * of paired results only when all source Observables \n * have emitted a value for the current index. \n * \n * If ObsA emits but ObsB doesn't, then zip won't emit any value.\n */\n\nprivate name$ = of('Aman', 'Ram', 'Joy');\nprivate age$ = interval(3000).pipe(take(3));\n\nzip(\n  this.age$,\n  this.name$,\n).subscribe(val => console.log(val));\n\n//Console Output\n[0, 'Aman']\n[1, 'Ram']\n[2, 'Joy']",
+                "meta": {
+                    "language": "javascript"
+                }
+            },
+            {
+                "type": "code",
+                "title": "race()",
+                "content": "/**\n * race(): Subscribes to multiple source Observables \n * and emits values from the first Observable to emit a value. \n * All other Observables are then unsubscribed.\n * \n * Which ever observable will emit first,\n * will get subscribed, other Observables \n * are then unsubscribed.\n */\n\nrace(\n  this.age$,\n  this.name$,\n).subscribe(val => console.log(val));\n\n//Console Output\nAman\nRam\nJoy\n//2nd observable got ignored",
+                "meta": {
+                    "language": "javascript"
+                }
+            }
+        ]
+    },
+    {
+        "id": "n_yvyyxca6",
+        "question": "Deferrable (@defer)",
+        "topic": "Components and Templates",
+        "complexity": "Intermediate",
+        "answer": [
+            {
+                "type": "paragraph",
+                "title": "",
+                "content": "<b>@defer</b> block in Angular is a template syntax feature introduced in angular 17, it allows us to lazy-load parts of template(component, directive, pipe and their CSS) on conditional basis.<div><br></div><div>This helps in reducing initial bundle size and improve performance by deferring the loading of code which is not necessary for initial page view.</div><div><br></div><div>The code for component, directive, pipe inside @defer block is split into a separate JavaScript file and loaded only when required, after the rest of the template has been rendered.</div><div><br></div><div>This is a one-time operation the @defer block does not revert to the placeholder if the condition changes to a falsy value.</div><div><br></div><div>Conditions for the dependencies within a @defer block to be deferred:</div><div><ul><li><b>They must be standalone</b>: non-standalone dependencies cannot be deferred, they will get loaded eagerly.</li><li><b>They cannot be referenced outside @defer within same file</b>: If they are&nbsp; referenced outside or referenced within ViewChild queries they will be eagerly loaded.</li></ul><div><i><u>Note</u></i>: Transitive dependencies (dependencies of dependency) of the component/directive/pipe used in @defer do not strictly need to be standalone.</div></div><div><br></div><div>Different stages of deferred loading:</div><div><ul><li><b>@defer:</b> This is the primary block that defines the section of content that is lazily loaded. By default, it loaded when the browser state becomes idle.</li><li><b>@placeholder:</b> This is an optional block used to show the content before @defer block is triggered.</li><li><b>@loading:</b> This is an optional block that allows us to declare content, that is shown while deferred dependencies are loading. It replaces @placeholder once loading is triggered.</li><li><b>@error:</b> This is an optional block used to show template if deferred loading fails.</li></ul></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "@defer {\n    <p>This is lazily loaded data.</p>\n}\n<!-- Placeholder accepts an optional parameter\n    to specify the minimum time it should be shown.\n    It accepts time in (s) or (ms) -->\n@placeholder (minimum 5s) {\n    <p>This is placeholder</p>\n}\n<!-- loading accepts two optional parameters:\n    minimum - The amount of time this placeholder\n            should be shown.\n    after - Amount of time to wait after loading begins,\n            before showing the loading template.\n    Both params accepts time in (s) or (ms).\n\n    Timer for both params begin immediately\n    after loading gets triggered.\n  -->\n@loading(after 100ms; minimum 3000ms) {\n    <p>This is loading template</p>\n}\n@error {\n    <p>Error in loading data!</p>\n}",
+                "meta": {
+                    "language": "html"
+                }
+            },
+            {
+                "type": "paragraph",
+                "title": "Controlling deferred content loading with triggers/condition",
+                "content": "We can specify triggers when angular loads and displays deferred content.<div><br></div><div>Multiple event triggers can be defined by separating with <b>;</b> and will be evaluated as <b>OR </b>condition.</div><div><br></div><div>There are two types of trigger <b>on (</b>Some inbuilt events/conditions<b>)&nbsp;</b>and <b>when(</b>It accepts custom conditional expression<b>).</b></div><div><b><br></b></div><div>The available <b>on </b>triggers are:</div><div><ul><li><b>idle</b>: This trigger loads the content once browser has reached an idle state.<br>- This is the default behavior of defer block.</li><li><b>viewport</b>: This trigger loads the content when specified content enters the viewport.<br>- By default defer watches for the placeholder to enter the viewport. Placeholders used this way must have a single root element.<br>- Alternatively we can specify a template reference variable, that is being watched to enter viewport to trigger loading.</li><li><b>interaction</b>: This trigger loads the content when user interacts with the specified element.<br>- By default placeholder acts as interaction element.<br>- Alternatively we can specify template reference for interaction.</li><li><b>hover</b>: This trigger loads the content when it has been hovered.<br>- By default placeholder acts as interaction element.<br>- Alternatively we can specify template reference for interaction.</li><li><b>immediate</b>: This trigger loads the content immediately. This means deferred block will be loaded as soon as all other non-deferred content finishes rendering.</li><li><b>timer</b>: This trigger loads the content after a specified duration. Duration parameter must be defined in (ms) or (s).</li></ul><div>The when trigger accepts a custom conditional expression, it loads the content when it meets the condition.</div></div>",
+                "meta": {}
+            },
+            {
+                "type": "code",
+                "title": "",
+                "content": "<!-- viewPort -->\n\n<!-- Once this block will\n    come in viewport, defer\n    will loads the content-->\n<p #viewMore>View more</p>\n\n@defer(on viewport(viewMore)) {\n    <p>This is lazily loaded data.</p>\n}\n@placeholder {\n    <p>This is placeholder</p>\n}\n\n<!-- With option and default trigger -->\n@defer(on viewport({rootMargin: '100px', threshold: 0.5})) {\n    <p>This is lazily loaded data.</p>\n} @placeholder {\n    <p>This is placeholder</p>\n}\n\n<!-- With option and trigger -->\n<p #lastitem>Last Item</p>\n@defer(on viewport({trigger: lastitem, rootMargin: '100px', threshold: 0.5})) {\n    <p>This is lazily loaded data.</p>\n}\n\n\n<!-- for interaction/hover\n    we can use template reference\n    for interaction other than\n    default (i.e. placeholder) -->\n<p #viewMore>View more</p>\n\n@defer(on interaction(viewMore)) {\n    <p>This is lazily loaded data.</p>\n}\n@placeholder {\n    <p>This is placeholder</p>\n}",
+                "meta": {
+                    "language": "html"
+                }
+            },
+            {
+                "type": "paragraph",
+                "title": "Prefetching data with prefetch and few important points.",
+                "content": "We can optionally specify a <b>prefetch trigger</b>, this trigger lets us load JS associated with the @defer block before deferred content is shown.<div><br></div><div>@defer (on interaction; <b>prefetch </b>on idle) {</div><div>&nbsp; &nbsp; &nbsp; &lt;p&gt;Content&lt;/p&gt;</div><div>}</div><div><br></div><div>NgModule based dependencies are not deferred and are included in the eagerly loaded bundle.</div><div><br></div><div>When <b>Hot Module Reload(HMR) </b>is active, all @defer block chunks are fetched eagerly. To restore standard trigger behavior we need to disable HMR by serving application with <b>--no-hmr</b> flag.</div><div><br></div><div>In case of application on server (SSR or SSG), defer blocks load their @placeholder eagerly and trigger are not invoked. On the client, the content of the placeholder is hydrated and triggers are activated.</div><div><br></div><div><br></div><div>Things to avoid:</div><div>- Avoid cascading loads with nested @defer, if nested defer are there they should have different triggers.</div><div>- Avoid deferring content which are visible in user's viewport on initial load.</div><div>- Keep accessibility on mind, ensure that changes are announced to userwhen transition occurs.</div>",
+                "meta": {}
+            }
+        ]
     }
 ]
